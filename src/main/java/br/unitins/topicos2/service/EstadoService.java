@@ -8,7 +8,7 @@ import br.unitins.topicos2.dto.EstadoResponseDTO;
 public interface EstadoService {
 
         // recursos basicos
-        List<EstadoResponseDTO> getAll();
+        List<EstadoResponseDTO> getAll(int page, int pageSize);
 
         EstadoResponseDTO findById(Long id);
     
@@ -20,8 +20,10 @@ public interface EstadoService {
     
         // recursos extras
     
-        List<EstadoResponseDTO> findByNome(String nome);
+        List<EstadoResponseDTO> findByNome(String nome, int page, int pageSize);
     
         long count();
+
+        long countByNome(String nome);
     
 }
