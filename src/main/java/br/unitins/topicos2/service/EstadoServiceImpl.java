@@ -13,6 +13,7 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Valid;
 import jakarta.validation.Validator;
 import jakarta.ws.rs.NotFoundException;
 
@@ -42,8 +43,8 @@ public class EstadoServiceImpl implements EstadoService {
 
     @Override
     @Transactional
-    public EstadoResponseDTO create(EstadoDTO estadoDTO) throws ConstraintViolationException {
-        validar(estadoDTO);
+    public EstadoResponseDTO create(@Valid EstadoDTO estadoDTO) throws ConstraintViolationException {
+        //validar(estadoDTO);
 
         Estado entity = new Estado();
         entity.setNome(estadoDTO.nome());

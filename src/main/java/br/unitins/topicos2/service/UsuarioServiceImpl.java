@@ -9,6 +9,7 @@ import br.unitins.topicos2.dto.UsuarioResponseDTO;
 import br.unitins.topicos2.model.Telefone;
 import br.unitins.topicos2.model.Usuario;
 import br.unitins.topicos2.repository.UsuarioRepository;
+import br.unitins.topicos2.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -22,6 +23,9 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     @Transactional
     public UsuarioResponseDTO insert(UsuarioDTO dto) {
+        if (repository.findByLogin(dto.login()) != null) {
+            throw new ValidationException("login", "O login informado já existe, informe outro login.");
+        }
         Usuario novoUsuario = new Usuario();
         novoUsuario.setNome(dto.nome());
         novoUsuario.setLogin(dto.login());

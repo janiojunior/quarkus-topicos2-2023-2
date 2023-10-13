@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.unitins.topicos2.dto.EstadoDTO;
 import br.unitins.topicos2.dto.EstadoResponseDTO;
+import jakarta.validation.Valid;
 
 public interface EstadoService {
 
@@ -12,7 +13,7 @@ public interface EstadoService {
 
         EstadoResponseDTO findById(Long id);
     
-        EstadoResponseDTO create(EstadoDTO dto);
+        EstadoResponseDTO create(@Valid EstadoDTO dto);
     
         EstadoResponseDTO update(Long id, EstadoDTO dto);
     
