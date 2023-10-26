@@ -9,6 +9,7 @@ public class Faixa extends DefaultEntity {
     private Modalidade modalidade;
     private Double preco;
     private Integer estoque;
+    private String nomeImagem;
 
     public String getNome() {
         return nome;
@@ -48,6 +49,14 @@ public class Faixa extends DefaultEntity {
 
     public void setEstoque(Integer estoque) {
         this.estoque = estoque;
+    }
+
+    public String getNomeImagem() {
+        return nomeImagem;
+    }
+
+    public void setNomeImagem(String nomeImagem) {
+        this.nomeImagem = nomeImagem;
     }
 
 }

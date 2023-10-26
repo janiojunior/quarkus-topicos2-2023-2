@@ -16,6 +16,8 @@ public interface FaixaService {
         FaixaResponseDTO create(@Valid FaixaDTO dto);
     
         FaixaResponseDTO update(Long id, FaixaDTO dto);
+
+        FaixaResponseDTO salveImage(Long id, String nomeImagem);
     
         void delete(Long id);
     

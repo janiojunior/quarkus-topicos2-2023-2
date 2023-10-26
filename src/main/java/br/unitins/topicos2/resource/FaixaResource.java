@@ -8,6 +8,8 @@ import br.unitins.topicos2.application.Result;
 import br.unitins.topicos2.dto.FaixaDTO;
 import br.unitins.topicos2.dto.FaixaResponseDTO;
 import br.unitins.topicos2.service.FaixaService;
+import br.unitins.topicos2.service.FileService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.ws.rs.Consumes;
@@ -22,6 +24,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.ResponseBuilder;
 import jakarta.ws.rs.core.Response.Status;
 
 @Path("/faixas")
@@ -31,6 +34,9 @@ public class FaixaResource {
 
     @Inject
     FaixaService faixaService;
+
+    @Inject
+    FileService fileService;
 
     private static final Logger LOG = Logger.getLogger(FaixaResource.class);
 
@@ -100,5 +106,15 @@ public class FaixaResource {
             @QueryParam("pageSize") @DefaultValue("10") int pageSize) {
         return faixaService.findByNome(nome, page, pageSize);
         
+    }
+
+    @GET
+    @Path("/image/download/{nomeImagem}")
+    @RolesAllowed({"Admin","User"})
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response download(@PathParam("nomeImagem") String nomeImagem) {
+        ResponseBuilder response = Response.ok(fileService.download(nomeImagem));
+        response.header("Content-Disposition", "attachment;filename="+nomeImagem);
+        return response.build();
     }
 }

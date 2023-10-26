@@ -1,5 +1,6 @@
 package br.unitins.topicos2.service;
 
+
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -69,6 +70,16 @@ public class FaixaServiceImpl implements FaixaService {
         entity.setPreco(faixaDTO.preco());
         entity.setEstoque(faixaDTO.estoque());
         entity.setModalidade(Modalidade.valueOf(faixaDTO.idModalidade()));
+
+        return FaixaResponseDTO.valueOf(entity);
+    }
+
+    @Override
+    @Transactional
+    public FaixaResponseDTO salveImage(Long id, String nomeImagem) {
+   
+        Faixa entity = faixaRepository.findById(id);
+        entity.setNomeImagem(nomeImagem);
 
         return FaixaResponseDTO.valueOf(entity);
     }

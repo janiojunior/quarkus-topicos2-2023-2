@@ -9,7 +9,8 @@ public record FaixaResponseDTO (
     String descricao,
     Modalidade modalidade,
     Double preco,
-    Integer estoque
+    Integer estoque,
+    String nomeImagem
 ) {
 
     public static FaixaResponseDTO valueOf(Faixa faixa) {
@@ -19,7 +20,8 @@ public record FaixaResponseDTO (
             faixa.getDescricao(),
             faixa.getModalidade(),
             faixa.getPreco(),
-            faixa.getEstoque()
+            faixa.getEstoque(),
+            faixa.getNomeImagem()
         );
     }
 
