@@ -110,7 +110,6 @@ public class FaixaResource {
 
     @GET
     @Path("/image/download/{nomeImagem}")
-    @RolesAllowed({"Admin","User"})
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response download(@PathParam("nomeImagem") String nomeImagem) {
         ResponseBuilder response = Response.ok(fileService.download(nomeImagem));
