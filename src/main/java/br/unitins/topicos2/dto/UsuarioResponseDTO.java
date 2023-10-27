@@ -11,6 +11,8 @@ public record UsuarioResponseDTO(
     List<TelefoneDTO> listaTelefone
 ) { 
     public static UsuarioResponseDTO valueOf(Usuario usuario){
+        if (usuario == null)
+            return null;
 
         return new UsuarioResponseDTO(
             usuario.getId(), 

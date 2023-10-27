@@ -74,5 +74,11 @@ public class UsuarioServiceImpl implements UsuarioService {
         return repository.listAll().stream()
             .map(e -> UsuarioResponseDTO.valueOf(e)).toList();
     }
+
+    @Override
+    public UsuarioResponseDTO findByLoginAndSenha(String login, String senha) {
+        Usuario usuario = repository.findByLoginAndSenha(login, senha);
+        return UsuarioResponseDTO.valueOf(usuario);
+    }
     
 }
