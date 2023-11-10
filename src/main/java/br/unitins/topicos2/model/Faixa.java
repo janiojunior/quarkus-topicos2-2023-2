@@ -1,5 +1,7 @@
 package br.unitins.topicos2.model;
 
+import org.hibernate.annotations.Check;
+
 import jakarta.persistence.Entity;
 
 @Entity
@@ -8,6 +10,8 @@ public class Faixa extends DefaultEntity {
     private String descricao;
     private Modalidade modalidade;
     private Double preco;
+    
+   // @Check(constraints = "estoque >= 0")
     private Integer estoque;
     private String nomeImagem;
 
