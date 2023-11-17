@@ -8,7 +8,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import br.unitins.topicos2.model.Faixa;
+import br.unitins.topicos2.repository.FaixaRepository;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
 
 @ApplicationScoped
@@ -19,12 +23,28 @@ public class FaixaFileServiceImpl implements FileService {
         + File.separator + "images"
         + File.separator + "faixa" + File.separator;
 
+    @Inject
+    FaixaRepository faixaRepository;
+
     @Override
-    public String salvar(byte[] imagem, String nomeImagem) throws IOException {
+    @Transactional
+    public void salvar(Long id, String nomeImagem, byte[] imagem)  throws IOException {
+        Faixa faixa = faixaRepository.findById(id);
+
+        try {
+            String novoNomeImagem = salvarImagem(imagem, nomeImagem);
+            faixa.setNomeImagem(novoNomeImagem);
+            // excluir a imagem antiga (trabalho pra quem????)
+        } catch (IOException e) {
+            throw e;
+        }
+    }
+
+    private String salvarImagem(byte[] imagem, String nomeImagem) throws IOException {
         
         // verificando o tipo da imagem
         String mimeType = Files.probeContentType(new File(nomeImagem).toPath());
-        List<String> listMimeType = Arrays.asList("image/jpg", "image/png", "image/gif");
+        List<String> listMimeType = Arrays.asList("image/jpg", "image/jpeg", "image/png", "image/gif");
         if (!listMimeType.contains(mimeType)) {
             throw new IOException("Tipo de imagem não suportada.");
         }
