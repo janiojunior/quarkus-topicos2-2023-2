@@ -13,6 +13,7 @@ import br.unitins.topicos2.form.FaixaImageForm;
 import br.unitins.topicos2.model.Modalidade;
 import br.unitins.topicos2.service.FaixaService;
 import br.unitins.topicos2.service.FileService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.ws.rs.Consumes;
@@ -55,12 +56,14 @@ public class FaixaResource {
     }
 
     @GET
+    @RolesAllowed("Admin")
     @Path("/{id}")
     public FaixaResponseDTO findById(@PathParam("id") Long id) {
         return faixaService.findById(id);
     }
 
     @POST
+    @RolesAllowed("Admin")
     public Response insert(FaixaDTO dto) {
         LOG.infof("Inserindo um faixa: %s", dto.nome());
 
@@ -71,6 +74,7 @@ public class FaixaResource {
     }
 
     @PUT
+    @RolesAllowed("Admin")
     @Path("/{id}")
     public Response update(@PathParam("id") Long id, FaixaDTO dto) {
         try {
@@ -83,6 +87,7 @@ public class FaixaResource {
     }
 
     @DELETE
+    @RolesAllowed("Admin")
     @Path("/{id}")
     public Response delete(@PathParam("id") Long id) {
         faixaService.delete(id);
@@ -90,18 +95,21 @@ public class FaixaResource {
     }
 
     @GET
+    @RolesAllowed("Admin")
     @Path("/count")
     public long count() {
         return faixaService.count();
     }
 
     @GET
+    @RolesAllowed("Admin")
     @Path("/search/{nome}/count")
     public long count(@PathParam("nome") String nome) {
         return faixaService.countByNome(nome);
     }
 
     @GET
+    @RolesAllowed("Admin")
     @Path("/search/{nome}")
     public List<FaixaResponseDTO> search(
             @PathParam("nome") String nome,
@@ -121,6 +129,7 @@ public class FaixaResource {
     }
 
     @PATCH
+    @RolesAllowed("Admin")
     @Path("/image/upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public Response salvarImagem(@MultipartForm FaixaImageForm form) {
@@ -136,12 +145,14 @@ public class FaixaResource {
     }
 
     @GET
+    @RolesAllowed("Admin")
     @Path("/modalidades")
     public Response getModalidades() {
         return Response.ok(Modalidade.values()).build();
     }
 
     @GET
+    @RolesAllowed("Admin")
     @Path("/relatorio")
     @Produces("application/pdf")
     public Response gerarRelatorioPDF(@QueryParam("nome") @DefaultValue("") String nome) {
