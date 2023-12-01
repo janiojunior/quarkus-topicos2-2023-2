@@ -141,4 +141,16 @@ public class FaixaResource {
         return Response.ok(Modalidade.values()).build();
     }
 
+    @GET
+    @Path("/relatorio")
+    @Produces("application/pdf")
+    public Response gerarRelatorioPDF(@QueryParam("nome") @DefaultValue("") String nome) {
+        byte[] pdf = faixaService.createReportFaixas(nome);
+
+        ResponseBuilder response = Response.ok(pdf);
+        response.header("Content-Disposition", "attachment;filename=relatorioDeFaixas.pdf");
+        return response.build();
+
+    }
+
 }

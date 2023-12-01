@@ -28,5 +28,8 @@ public interface FaixaService {
         long count();
 
         long countByNome(String nome);
+
+        byte[] createReportFaixas(String filterNome);
+
     
 }
